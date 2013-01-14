@@ -33,7 +33,7 @@ public class MainActivity extends SherlockFragmentActivity {
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
-                .setText("Archive")
+                .setText("Folders")
                 .setTabListener(new TabListener<ActivitiesFragment>(this, "archive_tab", ActivitiesFragment.class));
         actionBar.addTab(tab);
         
