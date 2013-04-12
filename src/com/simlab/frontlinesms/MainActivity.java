@@ -1,43 +1,34 @@
 package com.simlab.frontlinesms;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.simlab.frontlinesms.fragments.ActivitiesFragment;
 import com.simlab.frontlinesms.fragments.MainSectionFragment;
-import com.simlab.frontlinesms.fragments.TabListener;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends SherlockFragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        //actionBar.setDisplayShowTitleEnabled(false);
 
-        Tab tab = actionBar.newTab()
-                .setText("Home")
-                .setTabListener(new TabListener<MainSectionFragment>(this, "home_tab", MainSectionFragment.class));
-        actionBar.addTab(tab);
+        Tab homeTab = actionBar.newTab().setText("Home").setTabListener(new MyTabListener(new MainSectionFragment()));    
+        Tab activityTab = actionBar.newTab().setText("Activities").setTabListener(new MyTabListener(new ActivitiesFragment()));
         
-        tab = actionBar.newTab()
-                .setText("Activities")
-                .setTabListener(new TabListener<ActivitiesFragment>(this, "activities_tab", ActivitiesFragment.class));
-        actionBar.addTab(tab);
-        
-        tab = actionBar.newTab()
-                .setText("Folders")
-                .setTabListener(new TabListener<ActivitiesFragment>(this, "archive_tab", ActivitiesFragment.class));
-        actionBar.addTab(tab);
+        actionBar.addTab(homeTab);
+        actionBar.addTab(activityTab);
         
         if(savedInstanceState != null) {
+        	actionBar.selectTab(homeTab);
         	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab"));
         }
     }
@@ -53,3 +44,19 @@ public class MainActivity extends SherlockFragmentActivity {
         return true;
     }
 }	
+
+class MyTabListener implements ActionBar.TabListener{
+    private SherlockFragment fragment;
+
+    public MyTabListener(SherlockFragment fragment){
+        this.fragment = fragment;
+    }
+    public void onTabSelected(Tab tab, FragmentTransaction ft){
+        ft.add(android.R.id.content, fragment, null);
+    }
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        ft.remove(fragment);
+    }
+}

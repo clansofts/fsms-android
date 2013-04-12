@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/autoreply_option"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="5dp"
+	android:layout_margin="4dp"
+	android:layout_marginLeft="10dp"
+	android:background="#eeeeee"
+    android:orientation="vertical" >
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:id="@+id/autoreply_label"
+        android:text="@string/autoreply_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:id="@+id/autoreply_description"
+        android:text="@string/autoreply_description"
+        android:textAppearance="?android:attr/textAppearanceSmall" /> 
+
+</LinearLayout>

@@ -8,35 +8,19 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/inbox"
+        android:text="@string/create_activity"
         android:padding="5dp"
         android:background="#eeeeee"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-	<TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sent"
-        android:padding="5dp"
-        android:background="#eeeeee"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pending"
-        android:padding="5dp"
-        android:background="#eeeeee"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <include layout="@layout/autoreply_menu_option" />
+    
+    <include layout="@layout/autoforward_menu_option" />
+    
+    <include layout="@layout/poll_menu_option" />
 
 </LinearLayout>
