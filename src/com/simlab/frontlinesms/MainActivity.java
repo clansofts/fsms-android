@@ -23,12 +23,11 @@ public class MainActivity extends SherlockFragmentActivity {
 
         Tab homeTab = actionBar.newTab().setText("Home").setTabListener(new MyTabListener(new MainSectionFragment()));    
         Tab activityTab = actionBar.newTab().setText("Activities").setTabListener(new MyTabListener(new ActivitiesFragment()));
-        
+
         actionBar.addTab(homeTab);
         actionBar.addTab(activityTab);
         
         if(savedInstanceState != null) {
-        	actionBar.selectTab(homeTab);
         	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab"));
         }
     }

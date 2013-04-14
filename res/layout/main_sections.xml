@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create_activity"
+        android:textStyle="bold"
         android:padding="5dp"
         android:background="#eeeeee"
         android:layout_marginTop="4dp"

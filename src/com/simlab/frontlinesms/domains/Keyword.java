@@ -11,9 +11,9 @@ public class Keyword {
 	@DatabaseField()
 	private String value;
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "factivity_id")
-	private Factivity activity;
-	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "autoreply_id")
+	private Autoreply autoreply;
+
 	public Keyword() { }
 	
 	//SETTERS
@@ -30,7 +30,7 @@ public class Keyword {
 		return this.value;
 	}
 	
-	public Factivity getActivity() {
-		return this.activity;
+	public Autoreply getAutoreply() {
+		return this.autoreply;
 	}
 }

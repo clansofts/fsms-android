@@ -9,14 +9,18 @@ public class Autoreply extends Factivity {
 	private String replyText;
 	
 	public Autoreply() { }
-	
+
 	//SETTERS
 	public void setReplyText(String replyText) {
 		this.replyText = replyText;
 	}
-	
+
 	//GETTERS
 	public String getReplyText() {
 		return this.replyText;
+	}
+
+	public String getType() {
+		return "autoreply";
 	}
 }
