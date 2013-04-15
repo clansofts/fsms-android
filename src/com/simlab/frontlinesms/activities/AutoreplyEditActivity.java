@@ -41,8 +41,9 @@ public class AutoreplyEditActivity extends SherlockActivity implements OnClickLi
 		switch(v.getId()){
 			case R.id.autoreply_save_button: {
 				Autoreply autoreply = new Autoreply();
-				autoreply.setName(nameTextField.getText().toString());
-				autoreply.setReplyText(replyTextField.getText().toString());
+				autoreply.name = nameTextField.getText().toString();
+				autoreply.replyText = replyTextField.getText().toString();
+				autoreply.keywords = keywordsTextField.getText().toString();
 				try {
 					new DatabaseHelper(getApplicationContext()).getAutoreplyDao().create(autoreply);
 					Toast.makeText(getApplicationContext(), "Autoreply Saved :)", Toast.LENGTH_LONG).show();

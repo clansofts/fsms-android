@@ -12,7 +12,6 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.simlab.frontlinesms.domains.Autoreply;
 import com.simlab.frontlinesms.domains.Factivity;
-import com.simlab.frontlinesms.domains.Keyword;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
@@ -21,7 +20,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private final String LOG_NAME = getClass().getName();
 
 	private Dao<Autoreply, Integer> autoreplyDao;
-	private Dao<Keyword, Integer> keywordDao;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,7 +30,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, Factivity.class);
 			TableUtils.createTable(connectionSource, Autoreply.class);
-			TableUtils.createTable(connectionSource, Keyword.class);
 		} catch (SQLException e) {
 			Log.e(LOG_NAME, "Could not create new table ", e);
 		}
@@ -43,7 +40,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.dropTable(connectionSource, Factivity.class, true);
 			TableUtils.dropTable(connectionSource, Autoreply.class, true);
-			TableUtils.dropTable(connectionSource, Keyword.class, true);
 			onCreate(sqLiteDatabase, connectionSource);
 		} catch (SQLException e) {
 			Log.e(LOG_NAME, "Could not upgrade the table for Thing", e);
@@ -53,10 +49,5 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public Dao<Autoreply, Integer> getAutoreplyDao() throws SQLException {
 		if (autoreplyDao == null) { autoreplyDao = getDao(Autoreply.class);}
 		return autoreplyDao;
-	}
-	
-	public Dao<Keyword, Integer> getKeywordDao() throws SQLException {
-		if (keywordDao == null) { keywordDao = getDao(Keyword.class);}
-		return keywordDao;
 	}
 }

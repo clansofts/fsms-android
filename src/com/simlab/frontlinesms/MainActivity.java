@@ -9,10 +9,13 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.simlab.frontlinesms.fragments.ActivitiesFragment;
 import com.simlab.frontlinesms.fragments.MainSectionFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends SherlockFragmentActivity {
+	
+	public static Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class MainActivity extends SherlockFragmentActivity {
         if(savedInstanceState != null) {
         	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab"));
         }
+        
+        MainActivity.context = getApplicationContext();
     }
     
     protected void onSaveInstanceState(Bundle outState) {
