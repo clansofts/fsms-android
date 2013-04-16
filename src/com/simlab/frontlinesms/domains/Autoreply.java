@@ -2,8 +2,6 @@ package com.simlab.frontlinesms.domains;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.simlab.frontlinesms.helpers.SMSTransporter;

@@ -2,6 +2,7 @@ package com.simlabs.frontlinesms.listeners;
 
 import java.util.ArrayList;
 
+import com.simlab.frontlinesms.MainActivity;
 import com.simlab.frontlinesms.domains.Factivity;
 import com.simlab.frontlinesms.domains.Fmessage;
 import com.simlab.frontlinesms.helpers.KeywordProcessor;
@@ -17,8 +18,7 @@ import android.widget.Toast;
 public class SmsListener extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO Auto-generated method stub
-
+		MainActivity.context = context;
 		if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 			Bundle bundle = intent.getExtras();
 			SmsMessage[] msgs = null;
@@ -42,10 +42,11 @@ public class SmsListener extends BroadcastReceiver {
 						}
 						Toast.makeText(context, msgBody, Toast.LENGTH_LONG)
 								.show();
-						Log.d("INCOMING MESSAGE", msgBody);
+						Log.d("SEMEV", "INCOMING MESSAGE # " + msgBody);
 					}
 				} catch (Exception e) {
-					Log.d("Exception caught", e.getMessage());
+					Log.e("SEMEV", "### OOPS SOMETHING BAD HAS HAPPENED");
+					e.printStackTrace();
 				}
 			}
 		}
