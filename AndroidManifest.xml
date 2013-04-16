@@ -32,6 +32,7 @@
             </intent-filter>
         </receiver>
         <activity android:name="com.simlab.frontlinesms.activities.AutoreplyEditActivity"></activity>
+        <activity android:name="com.simlab.frontlinesms.activities.AutoforwardEditActivity"></activity>
     </application>
 
 </manifest>

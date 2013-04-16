@@ -54,7 +54,7 @@ public class AutoreplyEditActivity extends SherlockActivity implements OnClickLi
 				}
 			}
 			default:
-				//do nothing
+				break;
 		}
 	}
 

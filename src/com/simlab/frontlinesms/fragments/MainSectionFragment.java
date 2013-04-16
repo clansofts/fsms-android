@@ -2,6 +2,7 @@ package com.simlab.frontlinesms.fragments;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.simlab.frontlinesms.R;
+import com.simlab.frontlinesms.activities.AutoforwardEditActivity;
 import com.simlab.frontlinesms.activities.AutoreplyEditActivity;
 
 import android.content.Context;
@@ -43,6 +44,8 @@ public class MainSectionFragment extends SherlockFragment implements OnClickList
 		}
 		if(v == getView().findViewById(R.id.autoforward_option)){
 			Toast.makeText(currentContext, "Opening Autoforward", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(getActivity().getApplicationContext(), AutoforwardEditActivity.class);
+			startActivity(intent);
 		}
 		if(v == getView().findViewById(R.id.poll_option)){
 			Toast.makeText(currentContext, "Opening Poll", Toast.LENGTH_SHORT).show();
