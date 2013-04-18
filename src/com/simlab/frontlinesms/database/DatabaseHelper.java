@@ -10,6 +10,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.simlab.frontlinesms.domains.Autoforward;
 import com.simlab.frontlinesms.domains.Autoreply;
 import com.simlab.frontlinesms.domains.Factivity;
 
@@ -20,6 +21,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private final String LOG_NAME = getClass().getName();
 
 	private Dao<Autoreply, Integer> autoreplyDao;
+	private Dao<Autoforward, Integer> autoforwardDao;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,6 +32,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, Factivity.class);
 			TableUtils.createTable(connectionSource, Autoreply.class);
+			TableUtils.createTable(connectionSource, Autoforward.class);
 		} catch (SQLException e) {
 			Log.e(LOG_NAME, "Could not create new table ", e);
 		}
@@ -40,6 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.dropTable(connectionSource, Factivity.class, true);
 			TableUtils.dropTable(connectionSource, Autoreply.class, true);
+			TableUtils.dropTable(connectionSource, Autoforward.class, true);
 			onCreate(sqLiteDatabase, connectionSource);
 		} catch (SQLException e) {
 			Log.e(LOG_NAME, "Could not upgrade the table for Thing", e);
@@ -49,5 +53,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public Dao<Autoreply, Integer> getAutoreplyDao() throws SQLException {
 		if (autoreplyDao == null) { autoreplyDao = getDao(Autoreply.class);}
 		return autoreplyDao;
+	}
+	
+	public Dao<Autoforward, Integer> getAutoforwardDao() throws SQLException {
+		if (autoforwardDao == null) { autoforwardDao = getDao(Autoforward.class); }
+		return autoforwardDao;
 	}
 }
