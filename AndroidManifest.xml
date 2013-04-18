@@ -35,6 +35,7 @@
         </receiver>
         <activity android:name="com.simlab.frontlinesms.activities.AutoreplyEditActivity"></activity>
         <activity android:name="com.simlab.frontlinesms.activities.AutoforwardEditActivity"></activity>
+        <activity android:name="com.simlab.frontlinesms.activities.AutoreplyViewActivity"></activity>
     </application>
 
 </manifest>
