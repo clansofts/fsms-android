@@ -1,10 +1,12 @@
-package com.simlab.frontlinesms.fragments;
+package com.simlab.frontlinesms.activities;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.j256.ormlite.dao.Dao;
 import com.simlab.frontlinesms.MainActivity;
 import com.simlab.frontlinesms.R;
@@ -28,24 +30,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivitiesFragment extends SherlockFragment implements OnItemClickListener {
+public class FactivitiesListActivity extends SherlockActivity implements OnItemClickListener {
 	ListView activityListView;
 	public FactivityItemAdapter aa;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.activities_list, container, false);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
+		setContentView(R.layout.activities_list);
 		try {
-			Dao<Autoreply, Integer> autoreplyDao = new DatabaseHelper(
-					getActivity().getApplicationContext()).getAutoreplyDao();
-			Dao<Autoforward, Integer> autoforwardDao = new DatabaseHelper(
-					getActivity().getApplicationContext()).getAutoforwardDao();
+			Dao<Autoreply, Integer> autoreplyDao = new DatabaseHelper(getApplicationContext()).getAutoreplyDao();
+			Dao<Autoforward, Integer> autoforwardDao = new DatabaseHelper(getApplicationContext()).getAutoforwardDao();
 
 			List<Autoreply> autoreplyActivityList = autoreplyDao.queryForAll();
 			List<Autoforward> autoforwardActivityList = autoforwardDao
@@ -61,9 +59,9 @@ public class ActivitiesFragment extends SherlockFragment implements OnItemClickL
 						a.keywords));
 			}
 
-			activityListView = (ListView) getView().findViewById(
+			activityListView = (ListView) findViewById(
 					R.id.all_activities);
-			aa = new FactivityItemAdapter(this.getActivity(), R.layout.activity_item_row, allActivities);
+			aa = new FactivityItemAdapter(this, R.layout.activity_item_row, allActivities);
 			activityListView.setAdapter(aa);
 			aa.notifyDataSetChanged();
 			
@@ -72,17 +70,27 @@ public class ActivitiesFragment extends SherlockFragment implements OnItemClickL
 			e.printStackTrace();
 		}
 	}
+	
+    public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+		    return true;
+		default:
+		    return super.onOptionsItemSelected(item);
+		}
+    }
 
 	/*
 	 * Handling for activity selected
 	 */
 	public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
-		Toast.makeText(getActivity(), "Selected activity ", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Selected activity ", Toast.LENGTH_SHORT).show();
 		String id = ((TextView) view.findViewById(R.id.activityId)).getText().toString();
 		String type = ((TextView) view.findViewById(R.id.activityType)).getText().toString();
 		Factivity selectedActivity = getFactivity(type,id);
 		if(selectedActivity instanceof Autoreply) {
-			Intent i = new Intent(getActivity(), AutoreplyViewActivity.class);
+			Intent i = new Intent(this, AutoreplyViewActivity.class);
 			i.putExtra("name", selectedActivity.name);
 			i.putExtra("replyText", ((Autoreply) selectedActivity).replyText);
 			i.putExtra("keywords", selectedActivity.keywords);

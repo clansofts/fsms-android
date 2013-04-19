@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.simlab.frontlinesms.R;
 
 public class AutoreplyViewActivity extends SherlockActivity {
@@ -30,4 +31,14 @@ public class AutoreplyViewActivity extends SherlockActivity {
         replyTextTextView.append(replyText);
         keywordsTextView.append(keywords);
 	}
+	
+    public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+		    return true;
+		default:
+		    return super.onOptionsItemSelected(item);
+		}
+    }
 }

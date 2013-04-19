@@ -1,66 +1,59 @@
 package com.simlab.frontlinesms;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.simlab.frontlinesms.fragments.ActivitiesFragment;
-import com.simlab.frontlinesms.fragments.MainSectionFragment;
+import com.simlab.frontlinesms.activities.AutoforwardEditActivity;
+import com.simlab.frontlinesms.activities.AutoreplyEditActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
-public class MainActivity extends SherlockFragmentActivity {
-	
+public class MainActivity extends SherlockActivity implements OnClickListener  {	
 	public static Context context;
-
+    
+	View autoreplyOption;
+	View autoforwardOption;
+	
+	@Override
+    public void onCreate (Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		MainActivity.context = getApplicationContext();
+		setContentView(R.layout.main_sections);
+		
+		autoreplyOption = findViewById(R.id.autoreply_option);
+		autoforwardOption = findViewById(R.id.autoforward_option);
+		
+		autoreplyOption.setOnClickListener(this);
+		autoforwardOption.setOnClickListener(this);
+    }
+    
+    public void onClick (View v) {
+    	Context currentContext = getApplicationContext();
+    	
+		if(v == findViewById(R.id.autoreply_option)){
+			Toast.makeText(currentContext, "Opening Autoreply", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(getApplicationContext(), AutoreplyEditActivity.class);
+			startActivity(intent);
+		}
+		if(v == findViewById(R.id.autoforward_option)){
+			Toast.makeText(currentContext, "Opening Autoforward", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(getApplicationContext(), AutoforwardEditActivity.class);
+			startActivity(intent);
+		}
+		if(v == findViewById(R.id.poll_option)){
+			Toast.makeText(currentContext, "Opening Poll", Toast.LENGTH_SHORT).show();
+		}
+    }
+    
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        Tab homeTab = actionBar.newTab().setText("Home").setTabListener(new MyTabListener(new MainSectionFragment()));    
-        Tab activityTab = actionBar.newTab().setText("Activities").setTabListener(new MyTabListener(new ActivitiesFragment()));
-
-        actionBar.addTab(homeTab);
-        actionBar.addTab(activityTab);
-        
-        if(savedInstanceState != null) {
-        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab"));
-        }
-        
-        MainActivity.context = getApplicationContext();
-    }
-    
-    protected void onSaveInstanceState(Bundle outState) {
-    	super.onSaveInstanceState(outState);
-    	outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
-    }
-    
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.activity_main, menu);
+        inflater.inflate(R.menu.main_section_menu, menu);
         return true;
-    }
-}	
-
-class MyTabListener implements ActionBar.TabListener{
-    private SherlockFragment fragment;
-
-    public MyTabListener(SherlockFragment fragment){
-        this.fragment = fragment;
-    }
-    public void onTabSelected(Tab tab, FragmentTransaction ft){
-        ft.add(android.R.id.content, fragment, null);
-    }
-    public void onTabReselected(Tab tab, FragmentTransaction ft) {
-    }
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-        ft.remove(fragment);
     }
 }

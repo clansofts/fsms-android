@@ -1,7 +1,6 @@
 package com.simlab.frontlinesms.activities;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import android.content.Intent;
 import android.database.Cursor;
