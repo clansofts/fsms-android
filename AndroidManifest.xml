@@ -27,7 +27,7 @@
         </activity>
 
         <receiver
-            android:name="com.simlabs.frontlinesms.listeners.SmsListener"
+            android:name=".listeners.SmsListener"
             android:permission="android.permission.BROADCAST_SMS" >
             <intent-filter android:priority="2" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

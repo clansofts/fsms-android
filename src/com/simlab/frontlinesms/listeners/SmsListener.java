@@ -1,4 +1,4 @@
-package com.simlabs.frontlinesms.listeners;
+package com.simlab.frontlinesms.listeners;
 
 import java.util.ArrayList;
 
