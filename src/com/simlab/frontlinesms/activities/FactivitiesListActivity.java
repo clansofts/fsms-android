@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.j256.ormlite.dao.Dao;
 import com.simlab.frontlinesms.MainActivity;
@@ -25,25 +28,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FactivitiesListActivity extends SherlockActivity implements OnItemClickListener {
+public class FactivitiesListActivity extends SherlockActivity implements
+		OnItemClickListener, OnItemLongClickListener {
 	ListView activityListView;
 	public FactivityItemAdapter aa;
+	
+	ActionMode mActionMode;
+	Factivity selectedFactivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		setContentView(R.layout.activities_list);
 		try {
-			Dao<Autoreply, Integer> autoreplyDao = new DatabaseHelper(getApplicationContext()).getAutoreplyDao();
-			Dao<Autoforward, Integer> autoforwardDao = new DatabaseHelper(getApplicationContext()).getAutoforwardDao();
+			Dao<Autoreply, Integer> autoreplyDao = new DatabaseHelper(
+					getApplicationContext()).getAutoreplyDao();
+			Dao<Autoforward, Integer> autoforwardDao = new DatabaseHelper(
+					getApplicationContext()).getAutoforwardDao();
 
 			List<Autoreply> autoreplyActivityList = autoreplyDao.queryForAll();
 			List<Autoforward> autoforwardActivityList = autoforwardDao
@@ -59,27 +69,28 @@ public class FactivitiesListActivity extends SherlockActivity implements OnItemC
 						a.keywords));
 			}
 
-			activityListView = (ListView) findViewById(
-					R.id.all_activities);
-			aa = new FactivityItemAdapter(this, R.layout.activity_item_row, allActivities);
+			activityListView = (ListView) findViewById(R.id.all_activities);
+			aa = new FactivityItemAdapter(this, R.layout.activity_item_row,
+					allActivities);
 			activityListView.setAdapter(aa);
 			aa.notifyDataSetChanged();
-			
+
 			activityListView.setOnItemClickListener(this);
+			activityListView.setOnItemLongClickListener(this);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-    public boolean onOptionsItemSelected(MenuItem item) {
+
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			super.onBackPressed();
-		    return true;
+			return true;
 		default:
-		    return super.onOptionsItemSelected(item);
+			return super.onOptionsItemSelected(item);
 		}
-    }
+	}
 
 	/*
 	 * Handling for activity selected
@@ -88,31 +99,50 @@ public class FactivitiesListActivity extends SherlockActivity implements OnItemC
 		Toast.makeText(this, "Selected activity ", Toast.LENGTH_SHORT).show();
 		String id = ((TextView) view.findViewById(R.id.activityId)).getText().toString();
 		String type = ((TextView) view.findViewById(R.id.activityType)).getText().toString();
-		Factivity selectedActivity = getFactivity(type,id);
-		if(selectedActivity instanceof Autoreply) {
+		Factivity selectedActivity = getFactivity(type, id);
+
+    	// TODO Add handling for opening other activities here
+		if (selectedActivity instanceof Autoreply) {
 			Intent i = new Intent(this, AutoreplyViewActivity.class);
 			i.putExtra("name", selectedActivity.name);
 			i.putExtra("replyText", ((Autoreply) selectedActivity).replyText);
 			i.putExtra("keywords", selectedActivity.keywords);
 			startActivity(i);
-			
+
 		} else if (selectedActivity instanceof Autoforward) {
-			
+
 		}
 	}
-	
+
+	public boolean onItemLongClick(AdapterView<?> arg0, View view, int arg2,
+			long arg3) {
+		String id = ((TextView) view.findViewById(R.id.activityId)).getText().toString();
+		String type = ((TextView) view.findViewById(R.id.activityType)).getText().toString();
+		selectedFactivity = getFactivity(type, id);
+		
+		if (mActionMode != null) {
+            return false;
+        }
+
+        mActionMode = this.startActionMode(mActionModeCallback);
+        view.setSelected(true);
+        return true;
+	}
+
 	private Factivity getFactivity(String type, String id) {
 		Dao<Autoreply, ?> autoreplyDao = null;
-		Dao<Autoforward, ?> autoforwardDao =  null;
+		Dao<Autoforward, ?> autoforwardDao = null;
 		try {
-			autoreplyDao = new DatabaseHelper(MainActivity.context).getAutoreplyDao();
-			autoforwardDao = new DatabaseHelper(MainActivity.context).getAutoforwardDao();
+			autoreplyDao = new DatabaseHelper(MainActivity.context)
+					.getAutoreplyDao();
+			autoforwardDao = new DatabaseHelper(MainActivity.context)
+					.getAutoforwardDao();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		Factivity f = null;
-		
-		if(type == "autoreply") {
+
+		if (type == "autoreply") {
 			Autoreply a = new Autoreply();
 			a.id = Integer.parseInt(id);
 			try {
@@ -121,7 +151,7 @@ public class FactivitiesListActivity extends SherlockActivity implements OnItemC
 				e.printStackTrace();
 			}
 		}
-		if(type == "autoforward") {
+		if (type == "autoforward") {
 			Autoforward a = new Autoforward();
 			a.id = Integer.parseInt(id);
 			try {
@@ -130,9 +160,46 @@ public class FactivitiesListActivity extends SherlockActivity implements OnItemC
 				e.printStackTrace();
 			}
 		}
-		
+
 		return f;
 	}
+	
+	private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+	        MenuInflater inflater = mode.getMenuInflater();
+	        inflater.inflate(R.menu.activity_actions, menu);
+	        return true;
+	    }
+
+	    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+	        return false;
+	    }
+
+	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+	        switch (item.getItemId()) {
+	            case R.id.delete:
+	            	try {
+		            	if(selectedFactivity instanceof Autoreply) {
+								new DatabaseHelper(MainActivity.context).getAutoreplyDao().delete((Autoreply) selectedFactivity);
+		            	} else if(selectedFactivity instanceof Autoforward) {
+		            		new DatabaseHelper(MainActivity.context).getAutoforwardDao().delete((Autoforward) selectedFactivity);
+		            	}
+		            	// TODO Add handling for deleting other activities here
+	            	} catch (SQLException e) {
+	            		e.printStackTrace();
+	            	}
+	            	aa.notifyDataSetChanged();
+	                mode.finish();
+	                return true;
+	            default:
+	                return false;
+	        }
+	    }
+
+	    public void onDestroyActionMode(ActionMode mode) {
+	        mActionMode = null;
+	    }
+	};
 }
 
 class FactivityItem {
@@ -159,7 +226,8 @@ class FactivityItemAdapter extends ArrayAdapter<FactivityItem> {
 	int layoutResourceId;
 	ArrayList<FactivityItem> data = null;
 
-	public FactivityItemAdapter(Context context, int layoutResourceId, ArrayList<FactivityItem> data) {
+	public FactivityItemAdapter(Context context, int layoutResourceId,
+			ArrayList<FactivityItem> data) {
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;
@@ -177,8 +245,10 @@ class FactivityItemAdapter extends ArrayAdapter<FactivityItem> {
 
 			holder = new FactivityRowHolder();
 			holder.activityId = (TextView) row.findViewById(R.id.activityId);
-			holder.activityType = (TextView) row.findViewById(R.id.activityType);
-			holder.activityName = (TextView) row.findViewById(R.id.activityName);
+			holder.activityType = (TextView) row
+					.findViewById(R.id.activityType);
+			holder.activityName = (TextView) row
+					.findViewById(R.id.activityName);
 			row.setTag(holder);
 		} else {
 			holder = (FactivityRowHolder) row.getTag();
@@ -191,7 +261,7 @@ class FactivityItemAdapter extends ArrayAdapter<FactivityItem> {
 
 		return row;
 	}
-	
+
 	static class FactivityRowHolder {
 		TextView activityId, activityType, activityName;
 	}

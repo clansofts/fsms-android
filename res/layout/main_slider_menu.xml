@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/menu_option_home"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="@color/abs__bright_foreground_disabled_holo_dark"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/abs__background_holo_light"
+        android:text="Home"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/menu_option_activities"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="@color/abs__bright_foreground_disabled_holo_dark"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/abs__background_holo_light"
+        android:text="Activities"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/menu_option_settings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="@color/abs__bright_foreground_disabled_holo_dark"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/abs__background_holo_light"
+        android:text="Settings"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>
