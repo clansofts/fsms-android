@@ -1214,6 +1214,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0a0009;
+        public static final int activities_label=0x7f0a001f;
         public static final int app_name=0x7f0a000f;
         public static final int autoforward_description=0x7f0a001b;
         public static final int autoforward_label=0x7f0a001a;
@@ -1221,6 +1222,7 @@ containing a value of this type.
         public static final int autoreply_label=0x7f0a0018;
         public static final int create_activity=0x7f0a0017;
         public static final int hello_world=0x7f0a0010;
+        public static final int home_label=0x7f0a001e;
         public static final int inbox=0x7f0a0013;
         public static final int menu_new_message=0x7f0a0016;
         public static final int menu_settings=0x7f0a0011;
@@ -1228,6 +1230,7 @@ containing a value of this type.
         public static final int poll_description=0x7f0a001d;
         public static final int poll_label=0x7f0a001c;
         public static final int sent=0x7f0a0014;
+        public static final int settings_label=0x7f0a0020;
         public static final int title_activity_main=0x7f0a0012;
     }
     public static final class style {

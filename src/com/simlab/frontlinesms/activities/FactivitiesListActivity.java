@@ -38,48 +38,29 @@ public class FactivitiesListActivity extends SherlockActivity implements
 		OnItemClickListener, OnItemLongClickListener {
 	ListView activityListView;
 	public FactivityItemAdapter aa;
-	
+
 	ActionMode mActionMode;
 	Factivity selectedFactivity;
+	ArrayList<FactivityItem> allActivities;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activities_list);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		allActivities = new ArrayList<FactivityItem>();
+		updateAllActivities();
 
-		setContentView(R.layout.activities_list);
-		try {
-			Dao<Autoreply, Integer> autoreplyDao = new DatabaseHelper(
-					getApplicationContext()).getAutoreplyDao();
-			Dao<Autoforward, Integer> autoforwardDao = new DatabaseHelper(
-					getApplicationContext()).getAutoforwardDao();
+		activityListView = (ListView) findViewById(R.id.all_activities);
+		aa = new FactivityItemAdapter(this, R.layout.activity_item_row,
+				allActivities);
+		activityListView.setAdapter(aa);
+		aa.notifyDataSetChanged();
 
-			List<Autoreply> autoreplyActivityList = autoreplyDao.queryForAll();
-			List<Autoforward> autoforwardActivityList = autoforwardDao
-					.queryForAll();
-			ArrayList<FactivityItem> allActivities = new ArrayList<FactivityItem>();
-
-			for (Autoreply a : autoreplyActivityList) {
-				allActivities.add(new FactivityItem(a.id, a.name, a.getType(),
-						a.keywords));
-			}
-			for (Autoforward a : autoforwardActivityList) {
-				allActivities.add(new FactivityItem(a.id, a.name, a.getType(),
-						a.keywords));
-			}
-
-			activityListView = (ListView) findViewById(R.id.all_activities);
-			aa = new FactivityItemAdapter(this, R.layout.activity_item_row,
-					allActivities);
-			activityListView.setAdapter(aa);
-			aa.notifyDataSetChanged();
-
-			activityListView.setOnItemClickListener(this);
-			activityListView.setOnItemLongClickListener(this);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		activityListView.setOnItemClickListener(this);
+		activityListView.setOnItemLongClickListener(this);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,11 +78,13 @@ public class FactivitiesListActivity extends SherlockActivity implements
 	 */
 	public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 		Toast.makeText(this, "Selected activity ", Toast.LENGTH_SHORT).show();
-		String id = ((TextView) view.findViewById(R.id.activityId)).getText().toString();
-		String type = ((TextView) view.findViewById(R.id.activityType)).getText().toString();
+		String id = ((TextView) view.findViewById(R.id.activityId)).getText()
+				.toString();
+		String type = ((TextView) view.findViewById(R.id.activityType))
+				.getText().toString();
 		Factivity selectedActivity = getFactivity(type, id);
 
-    	// TODO Add handling for opening other activities here
+		// TODO Add handling for opening other activities here
 		if (selectedActivity instanceof Autoreply) {
 			Intent i = new Intent(this, AutoreplyViewActivity.class);
 			i.putExtra("name", selectedActivity.name);
@@ -116,17 +99,19 @@ public class FactivitiesListActivity extends SherlockActivity implements
 
 	public boolean onItemLongClick(AdapterView<?> arg0, View view, int arg2,
 			long arg3) {
-		String id = ((TextView) view.findViewById(R.id.activityId)).getText().toString();
-		String type = ((TextView) view.findViewById(R.id.activityType)).getText().toString();
+		String id = ((TextView) view.findViewById(R.id.activityId)).getText()
+				.toString();
+		String type = ((TextView) view.findViewById(R.id.activityType))
+				.getText().toString();
 		selectedFactivity = getFactivity(type, id);
-		
-		if (mActionMode != null) {
-            return false;
-        }
 
-        mActionMode = this.startActionMode(mActionModeCallback);
-        view.setSelected(true);
-        return true;
+		if (mActionMode != null) {
+			return false;
+		}
+
+		mActionMode = this.startActionMode(mActionModeCallback);
+		view.setSelected(true);
+		return true;
 	}
 
 	private Factivity getFactivity(String type, String id) {
@@ -163,43 +148,78 @@ public class FactivitiesListActivity extends SherlockActivity implements
 
 		return f;
 	}
-	
+
 	private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-	    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	        MenuInflater inflater = mode.getMenuInflater();
-	        inflater.inflate(R.menu.activity_actions, menu);
-	        return true;
-	    }
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			MenuInflater inflater = mode.getMenuInflater();
+			inflater.inflate(R.menu.activity_actions, menu);
+			return true;
+		}
 
-	    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-	        return false;
-	    }
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			return false;
+		}
 
-	    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-	        switch (item.getItemId()) {
-	            case R.id.delete:
-	            	try {
-		            	if(selectedFactivity instanceof Autoreply) {
-								new DatabaseHelper(MainActivity.context).getAutoreplyDao().delete((Autoreply) selectedFactivity);
-		            	} else if(selectedFactivity instanceof Autoforward) {
-		            		new DatabaseHelper(MainActivity.context).getAutoforwardDao().delete((Autoforward) selectedFactivity);
-		            	}
-		            	// TODO Add handling for deleting other activities here
-	            	} catch (SQLException e) {
-	            		e.printStackTrace();
-	            	}
-	            	aa.notifyDataSetChanged();
-	                mode.finish();
-	                return true;
-	            default:
-	                return false;
-	        }
-	    }
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			switch (item.getItemId()) {
+			case R.id.delete:
+				try {
+					if (selectedFactivity instanceof Autoreply) {
+						new DatabaseHelper(MainActivity.context)
+								.getAutoreplyDao().delete(
+										(Autoreply) selectedFactivity);
+					} else if (selectedFactivity instanceof Autoforward) {
+						new DatabaseHelper(MainActivity.context)
+								.getAutoforwardDao().delete(
+										(Autoforward) selectedFactivity);
+					}
+					// TODO Add handling for deleting other activities here
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				updateAllActivities();
+				aa.notifyDataSetChanged();
+				mode.finish();
+				return true;
+			default:
+				return false;
+			}
+		}
 
-	    public void onDestroyActionMode(ActionMode mode) {
-	        mActionMode = null;
-	    }
+		public void onDestroyActionMode(ActionMode mode) {
+			mActionMode = null;
+		}
 	};
+
+	private void updateAllActivities() {
+		Dao<Autoreply, Integer> autoreplyDao;
+		Dao<Autoforward, Integer> autoforwardDao;
+		List<Autoreply> autoreplyActivityList = null;
+		List<Autoforward> autoforwardActivityList = null;
+		try {
+			autoreplyDao = new DatabaseHelper(getApplicationContext())
+					.getAutoreplyDao();
+			autoforwardDao = new DatabaseHelper(getApplicationContext())
+					.getAutoforwardDao();
+
+			autoreplyActivityList = autoreplyDao.queryForAll();
+			autoforwardActivityList = autoforwardDao
+					.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		allActivities.clear();
+
+		for (Autoreply a : autoreplyActivityList) {
+			allActivities.add(new FactivityItem(a.id, a.name, a.getType(),
+					a.keywords));
+		}
+		for (Autoforward a : autoforwardActivityList) {
+			allActivities.add(new FactivityItem(a.id, a.name, a.getType(),
+					a.keywords));
+		}
+	}
 }
 
 class FactivityItem {

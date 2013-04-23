@@ -15,4 +15,8 @@
     <string name="autoforward_description">Forward a message to selected recipients</string>
 	<string name="poll_label">Poll</string>
     <string name="poll_description">Collect statistical data based on sms</string>
+
+    <string name="home_label">HOME</string>
+    <string name="activities_label">ACTIVITIES</string>
+    <string name="settings_label">SETTINGS</string>
 </resources>

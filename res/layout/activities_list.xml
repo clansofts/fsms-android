@@ -8,7 +8,7 @@
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ACTIVITIES"
+        android:text="@string/activities_label"
         android:textStyle="bold"
         android:padding="5dp"
         android:background="#eeeeee"

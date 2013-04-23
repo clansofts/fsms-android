@@ -13,7 +13,7 @@
         android:padding="8dp"
         android:textStyle="bold"
         android:textColor="@color/abs__background_holo_light"
-        android:text="Home"
+        android:text="@string/home_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:padding="8dp"
         android:textStyle="bold"
         android:textColor="@color/abs__background_holo_light"
-        android:text="Activities"
+        android:text="@string/activities_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:padding="8dp"
         android:textStyle="bold"
         android:textColor="@color/abs__background_holo_light"
-        android:text="Settings"
+        android:text="@string/settings_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>
