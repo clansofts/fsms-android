@@ -8,6 +8,7 @@ import com.simlab.frontlinesms.R;
 import android.os.Bundle;
 
 public class SettingsActivity extends SherlockPreferenceActivity {
+	public static final String RUN_BACKGROUND = "pref_running";
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

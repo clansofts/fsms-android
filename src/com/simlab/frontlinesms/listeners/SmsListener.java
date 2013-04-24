@@ -3,6 +3,7 @@ package com.simlab.frontlinesms.listeners;
 import java.util.ArrayList;
 
 import com.simlab.frontlinesms.MainActivity;
+import com.simlab.frontlinesms.activities.SettingsActivity;
 import com.simlab.frontlinesms.domains.Factivity;
 import com.simlab.frontlinesms.domains.Fmessage;
 import com.simlab.frontlinesms.helpers.KeywordProcessor;
@@ -10,7 +11,9 @@ import com.simlab.frontlinesms.helpers.KeywordProcessor;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +23,13 @@ public class SmsListener extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		MainActivity.context = context;
 		if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
+			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+			boolean runBackgroundPref = sharedPref.getBoolean(SettingsActivity.RUN_BACKGROUND, false);
+			if(runBackgroundPref == false){
+				Toast.makeText(context, "FrontlineSMS is not running in background.", Toast.LENGTH_LONG).show();
+				return;
+			}
+
 			Bundle bundle = intent.getExtras();
 			SmsMessage[] msgs = null;
 			String msgSource;
