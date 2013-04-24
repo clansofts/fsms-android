@@ -37,6 +37,7 @@
         <activity android:name="com.simlab.frontlinesms.activities.AutoforwardEditActivity"></activity>
         <activity android:name="com.simlab.frontlinesms.activities.AutoreplyViewActivity"></activity>
         <activity android:name="com.simlab.frontlinesms.activities.FactivitiesListActivity"></activity>
+        <activity android:name="com.simlab.frontlinesms.activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

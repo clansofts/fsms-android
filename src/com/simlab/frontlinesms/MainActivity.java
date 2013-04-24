@@ -2,12 +2,15 @@ package com.simlab.frontlinesms;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.simlab.frontlinesms.activities.AutoforwardEditActivity;
 import com.simlab.frontlinesms.activities.AutoreplyEditActivity;
 import com.simlab.frontlinesms.activities.FactivitiesListActivity;
+import com.simlab.frontlinesms.activities.SettingsActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +32,9 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		MainActivity.context = getApplicationContext();
 		setContentView(R.layout.main_sections);
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		mDrawer = MenuDrawer.attach(this);
 		mDrawer.setContentView(R.layout.main_sections);
@@ -81,6 +87,17 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		}
+		
+		case R.id.menu_option_settings: {
+			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+			startActivity(intent);
+			break;
+		}
+		
+		case R.id.menu_option_home: {
+			mDrawer.closeMenu();
+			break;
+		}
 
 		default:
 			break;
@@ -92,5 +109,15 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main_section_menu, menu);
 		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			mDrawer.toggleMenu();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
