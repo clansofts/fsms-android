@@ -35,6 +35,8 @@ public class MainActivity extends SherlockActivity implements OnClickListener {
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		new SettingsActivity().showRunningNotification();
 
 		mDrawer = MenuDrawer.attach(this);
 		mDrawer.setContentView(R.layout.main_sections);
