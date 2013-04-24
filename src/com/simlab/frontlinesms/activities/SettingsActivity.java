@@ -52,16 +52,6 @@ public class SettingsActivity extends SherlockPreferenceActivity implements
 			}
 		}
 	}
-
-	public void showRunningNotification() {
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		boolean runBackgroundPref = sharedPref.getBoolean(SettingsActivity.RUN_BACKGROUND, false);
-		if(runBackgroundPref) {
-			addRunningNotification("FrontlineSMS is running", "All received messages will be analysed by FrontlineSMS");
-		} else {
-			removeRunningNotification();
-		}
-	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
