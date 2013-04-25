@@ -1071,8 +1071,8 @@ containing a value of this type.
         public static final int autoforward_option=0x7f06003f;
         public static final int autoforward_recipients=0x7f06004b;
         public static final int autoforward_save_button=0x7f06004c;
-        public static final int autoreplyKeywords=0x7f060057;
-        public static final int autoreplyText=0x7f060058;
+        public static final int autoreplyKeywords=0x7f060058;
+        public static final int autoreplyText=0x7f060059;
         public static final int autoreply_description=0x7f060044;
         public static final int autoreply_keywords=0x7f06004e;
         public static final int autoreply_label=0x7f060043;
@@ -1080,9 +1080,10 @@ containing a value of this type.
         public static final int autoreply_option=0x7f060042;
         public static final int autoreply_replytext=0x7f06004f;
         public static final int autoreply_save_button=0x7f060050;
-        public static final int delete=0x7f060059;
+        public static final int delete=0x7f06005a;
         public static final int disableHome=0x7f06000f;
         public static final int edit_query=0x7f06002d;
+        public static final int forward_text=0x7f060057;
         public static final int homeAsUp=0x7f06000c;
         public static final int listMode=0x7f060008;
         /**  Used with View#setTag(int) to specify a position for the active view. 
@@ -1103,12 +1104,12 @@ containing a value of this type.
         /**  The ID of the menu container. 
          */
         public static final int md__menu=0x7f060003;
-        public static final int menu_new_message=0x7f06005b;
+        public static final int menu_new_message=0x7f06005c;
         public static final int menu_option_activities=0x7f060052;
         public static final int menu_option_home=0x7f060051;
         public static final int menu_option_settings=0x7f060053;
         public static final int normal=0x7f060007;
-        public static final int other=0x7f06005a;
+        public static final int other=0x7f06005b;
         public static final int poll_description=0x7f060056;
         public static final int poll_label=0x7f060055;
         public static final int poll_option=0x7f060054;
@@ -1162,7 +1163,8 @@ containing a value of this type.
         public static final int poll_menu_option=0x7f03001f;
         public static final int sherlock_spinner_dropdown_item=0x7f030020;
         public static final int sherlock_spinner_item=0x7f030021;
-        public static final int view_autoreply=0x7f030022;
+        public static final int view_autoforward=0x7f030022;
+        public static final int view_autoreply=0x7f030023;
     }
     public static final class menu {
         public static final int activity_actions=0x7f0c0000;

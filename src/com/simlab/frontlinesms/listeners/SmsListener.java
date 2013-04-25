@@ -25,8 +25,7 @@ public class SmsListener extends BroadcastReceiver {
 		if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 			boolean runBackgroundPref = sharedPref.getBoolean(SettingsActivity.RUN_BACKGROUND, false);
-			if(!runBackgroundPref){
-				Toast.makeText(context, "FrontlineSMS is not running in background.", Toast.LENGTH_LONG).show();
+			if(!runBackgroundPref) {
 				return;
 			}
 

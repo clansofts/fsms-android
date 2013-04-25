@@ -25,7 +25,8 @@ import com.simlab.frontlinesms.domains.Autoforward;
 public class AutoforwardEditActivity extends SherlockActivity implements OnClickListener {
 	final int CONTACT_PICKER_RESULT = 1001;
 	
-	String autoforwardId, name, forwardText, keywords, recipients;
+	String autoforwardId, name, forwardText, keywords;
+	String recipients = "";
 	TextView nameTextField, forwardTextField, keywordsTextField, tempRecipients;
 	View selectRecipientsButton;
 	Button saveAutoforwardButton;

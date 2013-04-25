@@ -91,9 +91,13 @@ public class FactivitiesListActivity extends SherlockActivity implements
 			i.putExtra("replyText", ((Autoreply) selectedActivity).replyText);
 			i.putExtra("keywords", selectedActivity.keywords);
 			startActivity(i);
-
 		} else if (selectedActivity instanceof Autoforward) {
-
+			Intent i = new Intent(this, AutoforwardViewActivity.class);
+			i.putExtra("name", selectedActivity.name);
+			i.putExtra("forwardText", ((Autoforward) selectedActivity).forwardText);
+			i.putExtra("keywords", selectedActivity.keywords);
+			i.putExtra("recipients", ((Autoforward) selectedActivity).recipents);
+			startActivity(i);
 		}
 	}
 

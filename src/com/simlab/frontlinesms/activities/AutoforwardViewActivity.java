@@ -8,28 +8,31 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.simlab.frontlinesms.R;
 
-public class AutoreplyViewActivity extends SherlockActivity {
-	TextView nameTextView, replyTextTextView, keywordsTextView;
+public class AutoforwardViewActivity extends SherlockActivity {
+	TextView nameTextView, forwardTextTextView, keywordsTextView, recipientsTextView;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.view_autoreply);
+        setContentView(R.layout.view_autoforward);
         
-        nameTextView = (TextView) findViewById(R.id.autoreply_name);
-        replyTextTextView = (TextView) findViewById(R.id.autoreplyText);
-        keywordsTextView = (TextView) findViewById(R.id.autoreplyKeywords);
+        nameTextView = (TextView) findViewById(R.id.autoforward_name);
+        forwardTextTextView = (TextView) findViewById(R.id.forward_text);
+        keywordsTextView = (TextView) findViewById(R.id.autoforward_keywords);
+        recipientsTextView = (TextView) findViewById(R.id.autoforward_recipients);
         
         Bundle bundle = this.getIntent().getExtras();
         String name = bundle.getString("name");
-        String replyText = bundle.getString("replyText");
+        String forwardText = bundle.getString("forwardText");
         String keywords = bundle.getString("keywords");
+        String recipients = bundle.getString("recipients");
         
         nameTextView.append(" : " + name);
-        replyTextTextView.append(" : " + replyText);
+        forwardTextTextView.append(" : " + forwardText);
         keywordsTextView.append(" : " + keywords);
+        recipientsTextView.append(" : " + recipients);
 	}
 	
     public boolean onOptionsItemSelected(MenuItem item) {

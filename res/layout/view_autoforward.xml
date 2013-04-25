@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/autoforward_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eeeeee"
+        android:padding="5dp"
+        android:text="@string/autoforward_label"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="#eeeeee"
+        android:padding="5dp"
+        android:text="@string/autoforward_description"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/autoforward_keywords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:padding="5dp"
+        android:text="Keywords"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/autoforward_recipients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:padding="5dp"
+        android:text="Recipients"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/forward_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:padding="5dp"
+        android:text="Forward message"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</LinearLayout>
