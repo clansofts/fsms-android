@@ -1,75 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textStyle="bold"
-        android:background="#eeeeee"
-        android:text="@string/autoforward_label"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textStyle="italic"
-        android:background="#eeeeee"
-        android:layout_marginBottom="4dp"
-        android:text="@string/autoforward_description"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee"
+            android:padding="5dp"
+            android:text="@string/autoforward_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/autoforward_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Name" >
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#eeeeee"
+            android:padding="5dp"
+            android:text="@string/autoforward_description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="italic" />
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/autoforward_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Name" >
 
-    <EditText
-        android:id="@+id/autoforward_keywords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Keywords (comma seperated)" />
+            <requestFocus />
+        </EditText>
 
-    <EditText
-        android:id="@+id/autoforward_forwardtext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:lines="5" 
-        android:gravity="left|top"
-        android:hint="Message to forward to recipients"
-        android:inputType="textMultiLine" />
+        <EditText
+            android:id="@+id/autoforward_keywords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Keywords (comma seperated)" />
 
-    <TextView
-        android:id="@+id/temp_recipients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recipients : "
-        android:textStyle="bold|italic"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-	<Button
-        android:id="@+id/autoforward_recipients"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Select Recipients" />
+        <EditText
+            android:id="@+id/autoforward_forwardtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="left|top"
+            android:hint="Message to forward to recipients"
+            android:inputType="textMultiLine"
+            android:lines="5" />
 
-    <Button
-        android:id="@+id/autoforward_save_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Save" />
+        <TextView
+            android:id="@+id/temp_recipients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recipients : "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold|italic" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/autoforward_recipients"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Recipients" />
+
+        <Button
+            android:id="@+id/autoforward_save_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Save" />
+    </LinearLayout>
+
+</ScrollView>
